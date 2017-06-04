@@ -1,0 +1,49 @@
+﻿@model PagedList.IPagedList<Online_Boutique.Areas.Admin.Models.Entites.LoaiSanPham>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="~/Admin/Category/Create" class="btn btn-primary">Thêm</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+           Tên Loại
+        </th>
+        <th>
+            Giới Tính
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tenloaisp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gioitinh)
+        </td>
+        <td>
+            <a class="btn btn-primary" href="~/Admin/Category/Edit?id=@item.maloaisp">Sửa</a>
+            <a class="btn btn-primary" href="~/Admin/Category/Delete?id=@item.maloaisp">Xóa</a>
+        </td>
+    </tr>
+}
+
+</table>
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
+

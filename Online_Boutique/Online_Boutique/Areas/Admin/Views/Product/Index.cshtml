@@ -1,0 +1,98 @@
+﻿@model PagedList.IPagedList<Online_Boutique.Areas.Admin.Models.Entites.SanPham>
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="~/Admin/Product/Create" class="btn btn-primary">Thêm</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tên Sản Phẩm
+        </th>
+        <th>
+            Giá gốc
+        </th>
+        <th>
+            Loại sản phẩm
+        </th>
+        <th>
+            Giá bán
+        </th>
+        <th>
+           Ngày nhập
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th>
+            Mô tả
+        </th>
+        <th>
+           Ảnh
+        </th>
+        <th>
+            Tình trạng
+        </th>
+        <th>
+            Size
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tensp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.giagocsp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiSanPham.tenloaisp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.giabansp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ngaynhapsp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.soluongsp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.motasp)
+        </td>
+        <td>
+            <img style="height:200px;width:200px" src="~/HinhAnh/nu/@item.anhsp" alt="hinhanh" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tinhtrangsp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.size)
+        </td>
+        <td>
+            <a href="~/Admin/Product/Edit?id=@item.masp" class="btn btn-primary" style="color:white;">Sửa</a>
+            <a href="~/Admin/Product/Delete?id=@item.masp" class="btn btn-primary" style="color:white;">Xóa</a>
+        </td>
+    </tr>
+}
+    
+</table>
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
+

@@ -1,0 +1,203 @@
+﻿@using Online_Boutique.Models.MyModels;
+@model List<GioHang>
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/TrangCon_Layout.cshtml";
+}
+@* lúc cart empty click vào cart bị lỗi section not  defined*@
+
+
+@section leftcontent{
+
+    }
+<div class="cart-items">
+    <div class="container">
+        <div class="dreamcrub">
+            <ul class="breadcrumbs">
+                <li class="home">
+                    <a href="index.html" title="Go to Home Page">Home</a>&nbsp;
+                    <span>&gt;</span>
+                </li>
+                <li class="women">
+                    Cart
+                </li>
+            </ul>
+           
+            <div class="clearfix"></div>
+        </div>
+        <div class="heading-bar">
+            <a class="more-btn">Tiến hành kiểm tra</a>
+        </div>
+
+        <div class="table_gio_hang">
+          
+                <table class="table table-hover table-striped" style="margin: 0px;padding: 0px;">
+                    <tr>
+
+                        <th>Tên Sản Phẩm</th>
+                        <th>Ảnh</th>
+                        <th class="center1">Giá</th>
+                        <th class="center1">Số lượng</th>
+                        <th class="center1">Thành tiền</th>
+                        <th>Xóa</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.tensp</td>
+                            <td>
+                                <img style="height:200px" src="~/HinhAnh/nu/@item.anhsp" alt="">
+                            </td>
+                            <td class="center1">@item.giabansp</td>
+                            <td class="center1"><input class="soluong1" required pattern="[1-9]{1,3}" title="Số lượng phải là chữ số và nhỏ hơn 4 kí tự" name="txtQTY" data-id="@item.masp" size="2" type="text" value="@item.slmuasp" /></td>
+                           
+                            <td class="center1 img_gio_hang">@item.thanhtien</td>
+                            <td>
+                                <a href="~/MyCart/XoaGioHang?masp=@item.masp"> Xóa<i class="icon-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="5">Tổng tiền: </td>
+                        <td class="center1"> <span>@ViewBag.tongtien</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" style="text-align: right">
+                            <a href="~/MyHome/index" class="btn btn-warning">Tiếp tục mua hàng</a>
+                            <button type="submit" style="" id="btnSubmit" name="btnSubmit" class="btn btn-info">Cập nhật giỏ hàng</button>
+
+                        </td>
+                    </tr>
+                </table>
+         
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#btnSubmit').click(function () {
+                    var listProduct = $('.soluong1');
+                    var cartList = [];
+                    $.each(listProduct, function (i, item) {
+                        cartList.push({
+                            slmuasp: $(item).val(),
+                            masp: $(item).data('id')       
+                        });
+                    });
+                    $.ajax({
+                        url: 'CapNhatGioHang',
+                        type: 'POST',
+                        dataType : 'json',
+                        data: { cartModel: JSON.stringify(cartList) },
+                        success: function (res) {
+                            if (res.status == true)
+                                window.location.href = 'GioHang';
+                        }
+                    })
+                })
+            });
+        </script>
+        <div class="heading-bar">
+            <a class="more-btn">Tiến hành đặt hàng</a>
+        </div>
+        <div class="table_gio_hang">
+            @if (Session["user"] != null) {
+            <form id="enableForm3" action="~/MyOrder/Index" method="POST" class="form-horizontal">
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Họ Tên (*)</label>
+                            <div class="col-md-7">
+                                <input class="myinput" type="text" value="@Session["fullname"] " class="form-control" name="txtHoTen" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Số điện thoại (*)</label>
+                            <div class="col-md-7">
+                                <input class="myinput" type="text" value="@Session["SDT"]" class="form-control" name="txtSoDienThoai" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Địa chỉ (*)</label>
+                            <div class="col-md-7">
+                                <input class="myinput" type="text" value="@Session["DiaChi"]" class="form-control" name="txtDiaChi" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Email (*)</label>
+                            <div class="col-md-7">
+                                <input class="myinput" type="text" value="@Session["email"]" class="form-control" name="txtEmail" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Ghi chú</label>
+                            <div class="col-md-7">
+                                <textarea style="width: 550px;" name="txtGhiChu"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="btnSubmit" class="btn btn-info btn-block" value="Đặt hàng" />
+                    </div>
+                </div>
+            </form>
+                                        }
+@if (Session["user"] == null)
+{
+            <form id="enableForm3" action="~/MyOrder/Index" method="POST" class="form-horizontal">
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Họ Tên (*)</label>
+                            <div class="col-md-7">
+                                <input class="myinput" type="text" value="" class="form-control" name="txtHoTen" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Số điện thoại (*)</label>
+                            <div class="col-md-7">
+                                <input class="myinput" type="text" value="" class="form-control" name="txtSoDienThoai" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Địa chỉ (*)</label>
+                            <div class="col-md-7">
+                                <input class="myinput" type="text" value="" class="form-control" name="txtDiaChi" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Email (*)</label>
+                            <div class="col-md-7">
+                                <input class="myinput" type="text" value="" class="form-control" name="txtEmail" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Ghi chú</label>
+                            <div class="col-md-7">
+                                <textarea style="width: 550px;" name="txtGhiChu"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="bnSubmit" class="btn btn-info btn-block" value="Đặt hàng" />
+                    </div>
+                </div>
+            </form>
+}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@* viewbag.tenchude = db.chude.single(x=>x.machude==...).TenChuDe;
+           ????     .Single(...) vì biết chắc chắn mã đó đã tồn tại
+ *@

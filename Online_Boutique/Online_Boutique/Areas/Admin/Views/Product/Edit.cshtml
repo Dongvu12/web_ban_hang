@@ -1,0 +1,111 @@
+﻿@model Online_Boutique.Areas.Admin.Models.Entites.SanPham
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("EditAction", "Product", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>SanPham</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.masp)
+
+        <div class="form-group">
+            <label>Tên Sản Phẩm </label><br />
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.tensp, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.tensp, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Giá gốc </label><br />
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.giagocsp, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.giagocsp, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Loại Sản Phẩm </label><br />
+            <div class="col-md-10">
+                @Html.DropDownList("maloaisp")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Giá bán </label><br />
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.giabansp, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.giabansp, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Số lượng</label><br />
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.soluongsp, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.soluongsp, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Mô tả</label><br />
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.motasp, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.motasp, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label>Tình trạng</label><br />
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.tinhtrangsp, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.tinhtrangsp, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Size</label><br />
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.size, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.size, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Ảnh</label><br />
+            <div class="col-md-10">
+                <input type="file" value="Chọn" name="fileUpload" class="btn btn-default" id="f" onchange="file_change(this)" />
+                <img src="~/HinhAnh/Nu/@Model.anhsp" id="img" style="height:200px;width:200px;" />
+                <input type="hidden" value="@Model.anhsp" name="img" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    function file_change(f) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+            var img = document.getElementById("img");
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(f.files[0]);
+    }
+</script>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

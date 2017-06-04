@@ -1,0 +1,71 @@
+﻿@model PagedList.IPagedList<Online_Boutique.Areas.Admin.Models.Entites.KhachHang>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<h2>Index</h2>
+<table class="table">
+    <tr>
+        <th>
+           Tên Tài Khoản
+        </th>
+        <th>
+            Họ Tên
+        </th>
+        <th>
+           Giới Tính
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            SĐT
+        </th>
+        <th>
+            Địa chỉ
+        </th>
+        <th>
+            Quyền
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tentaikhoan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hoten)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gioitinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sdt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Diachi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quyenhan)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) 
+        </td>
+    </tr>
+}
+
+</table>
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
