@@ -1,0 +1,126 @@
+﻿@using Online_Boutique.Models.MyModels;
+@model SanPham
+@{
+    ViewBag.Title = "ChiTietSP";
+    Layout = "~/Views/Shared/TrangCon_Layout.cshtml";
+}
+
+@*add area dat ten la admin..nhung sau do phai dang ki cai deo gi cho n nhan ra trong file route.config
+
+admin lte...trong folder Model cua no,lai phai ket noi lai csdl: add class data.....
+    
+  orderbydescending...sap xep theo id,tuc la sp nao moi them vao se hien  len trc
+
+    muon upload file tu may tinh len thi trong the form phai co enctype="multipart/?"
+
+    tim kiem nang cao dung sql thuan
+
+    *@
+
+@section leftcontent{
+
+}
+
+            <div class="new-product">
+                <div class="col-md-5 zoom-grid">
+                    <div class="flexslider">
+                        <ul class="slides">
+
+                            <li data-thumb="@Url.Content("~/HinhAnh/Nu/" + @Model.anhsp)">
+                                <div class="thumb-image"> <img style="width:200px;height:300px;" src="@Url.Content("~/HinhAnh/Nu/" + @Model.anhsp)" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+                            </li>
+                            <li data-thumb="@Url.Content("~/HinhAnh/Nu/" + @Model.anhsp)">
+                                <div class="thumb-image"> <img src="@Url.Content("~/HinhAnh/Nu/" + @Model.anhsp)" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+                            </li>
+                            <li data-thumb="@Url.Content("~/HinhAnh/Nu/" + @Model.anhsp)">
+                                <div class="thumb-image"> <img src="@Url.Content("~/HinhAnh/Nu/" + @Model.anhsp)" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+                            </li>
+
+                            <img src="@Url.Content("~/HinhAnh/Nu/" + @Model.anhsp)" data-imagezoom="true" class="img-responsive" alt="" />
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-7 dress-info">
+                    <div class="dress-name">
+                        <h3>@Model.tensp</h3>
+                        <span>@String.Format("{0:0,0}",@Model.giabansp) VND</span>
+                        <div class="clearfix"></div>
+                        
+                        @Model.thuonghieu
+                    </div>
+                    <div class="span span1">
+                        <p class="left">Mổ tả</p>
+                        <p class="right">@Model.motasp</p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="span span2">
+                        <p class="left">Tình trạng</p>
+                        <p class="right">@Model.tinhtrangsp</p>
+                        <div class="clearfix"></div>
+                    </div>
+                    
+                    <div class="span span4">
+                        <p class="left">SIZE: @Model.size</p>
+                        @*<p class="right">
+                            <span class="selection-box">
+                                <select class="domains valid" name="domains">
+                                    <option>M</option>
+                                    <option>L</option>
+                                    <option>XL</option>
+                                    <option>FS</option>
+                                    <option>S</option>
+                                </select>
+                            </span>
+                        </p>*@
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="purchase">
+                        <a class="cbp-vm-icon cbp-vm-add item_add" style="color:white;width:110px;" href="@Url.Action("ThemGioHang","MyCart",new {@masp= Model.masp, @url= Request.Url.ToString() })">Add to cart</a>
+                        <div class="social-icons">
+                            <ul>
+                                <li><a class="facebook1" href="#"></a></li>
+                                <li><a class="twitter1" href="#"></a></li>
+                                <li><a class="googleplus1" href="#"></a></li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <script src="js/imagezoom.js"></script>
+                    <!-- FlexSlider -->
+                    <script defer src="js/jquery.flexslider.js"></script>
+                    <script>
+						// Can also be used with $(document).ready()
+						$(window).load(function() {
+						  $('.flexslider').flexslider({
+							animation: "slide",
+							controlNav: "thumbnails"
+						  });
+						});
+                    </script>
+                </div>
+                
+                
+
+            </div>
+            <div class="clearfix"></div>
+            <script src="~/Content/web/js/responsive-tabs.js"></script>
+            <script type="text/javascript">
+      $( '#myTab a' ).click( function ( e ) {
+        e.preventDefault();
+        $( this ).tab( 'show' );
+      } );
+
+      $( '#moreTabs a' ).click( function ( e ) {
+        e.preventDefault();
+        $( this ).tab( 'show' );
+      } );
+
+      ( function( $ ) {
+          // Test for making sure event are maintained
+          $( '.js-alert-test' ).click( function () {
+            alert( 'Button Clicked: Event was maintained' );
+          } );
+          fakewaffle.responsiveTabs( [ 'xs', 'sm' ] );
+      } )( jQuery );
+
+            </script>
