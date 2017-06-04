@@ -243,12 +243,14 @@
     <Compile Include="Models\MyModels\Online_BoutiqueEntities.cs" />
     <Compile Include="Models\MyModels\SanPham.cs" />
     <Compile Include="Models\MyModels\sysdiagram.cs" />
+    <Compile Include="Models\MyModels\ThuongHieu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\MySearchProducts.js" />
     <Content Include="Content\My_Online_Boutique.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />

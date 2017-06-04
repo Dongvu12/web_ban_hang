@@ -15,8 +15,10 @@ namespace Online_Boutique.Controllers
         // GET: MyHome
         public ActionResult Index()
         {
-            var listnewsp = db.SanPhams.OrderBy(x=>x.ngaynhapsp).Take(12).ToList();
+            var listnewsp = db.SanPhams.Take(9).ToList();
+
             return View(listnewsp);
+           
         }
 
         public PartialViewResult HeaderPartial(string gt)

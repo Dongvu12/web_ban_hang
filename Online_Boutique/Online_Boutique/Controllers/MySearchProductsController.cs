@@ -40,9 +40,16 @@ namespace Online_Boutique.Views.MyProducts
             }
 
         }
+        public ActionResult timkiem2(int? page,int mathuonghieu,int pagesize=2)
+        {
+            int pagenumber = (page ?? 1);
+            List<SanPham> listkqtk = db.SanPhams.Where(x => x.mathuonghieu == mathuonghieu).ToList();
+            return View(listkqtk.ToPagedList(pagenumber, pagesize));
+
+        }
 
         [HttpGet]
-        public ActionResult KetQuaTimKiem(int? page, string keyword, int pagesize = 1)
+        public ActionResult KetQuaTimKiem(int? page, string keyword, int pagesize = 2)
         {
 
             List<SanPham> listkqtk = db.SanPhams.Where(x => x.tensp.Contains(keyword)).ToList();

@@ -13,6 +13,8 @@ namespace Online_Boutique.Models.MyModels
         public LoaiSanPham()
         {
             SanPhams = new HashSet<SanPham>();
+
+            
         }
 
         [Key]

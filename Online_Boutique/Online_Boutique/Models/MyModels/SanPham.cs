@@ -38,6 +38,13 @@ namespace Online_Boutique.Models.MyModels
         [StringLength(50)]
         public string size { get; set; }
 
+        [StringLength(50)]
+        public string mausac { get; set; }
+
+        public int? mathuonghieu { get; set; }
+
         public virtual LoaiSanPham LoaiSanPham { get; set; }
+        public virtual ThuongHieu ThuongHieu { get; set; }
+       
     }
 }
