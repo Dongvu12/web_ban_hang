@@ -1,7 +1,7 @@
 ﻿@model PagedList.IPagedList<Online_Boutique.Areas.Admin.Models.Entites.donhang>
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Đơn hàng";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -14,7 +14,7 @@
     <div class="row">
         <h2 class="text-center">Danh sách đơn hàng !!!</h2>
     </div>
-
+  
     <div class="row">
 @foreach (var item in Model)
 {
@@ -30,14 +30,14 @@
                     <table class="table table-bordered" style="margin-top: 10px;">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Phone</th>
+                                <th>Tên Kh</th>
+                                <th>SĐT</th>
                                 <th>Email</th>
-                                <th>Address</th>
-                                <th>Qty</th>
-                                <th>Money</th>
-                                <th>Create</th>
-                                <th>Note</th>
+                                <th>Địa chỉ</th>
+                                <th>Số lượng</th>
+                                <th>Tiền</th>
+                                <th>Thời gian</th>
+                                <th>Ghi Chú</th>
                                 <th colspan="2" class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -70,30 +70,32 @@
     </div>
 </div>
 <script type="text/javascript">
-	function updateOrdres(status,idOrder)
-	{
+    function updateOrdres(status,idOrder)
+    {
 
-          $.ajax({
-          	url : 'handle',
-          	type: 'POST',
+        $.ajax({
+            url : 'handle',
+            type: 'POST',
             dataType: 'json',
-          	data :{'id': JSON.stringify(idOrder),'status' : JSON.stringify(status)},
-          	success : function(res)
-          	{
-                   res= $.trim(res);
-                   if (res = true) {
-                       alert("Thao tác thành công");
-                       window.location.href = '~/Admin/Order/Index';
-                   }
-                   else if(res = false)
-                   {
-                       alert("Thao tác thất bại");
-                       window.location.href = 'Index';
-                   }
+            data :{'id': JSON.stringify(idOrder),'status' : JSON.stringify(status)},
+            success : function(res)
+            {
+                res= $.trim(res);
+                if (res = true) {
+                    alert("Thao tác thành công");
+                    window.location.href = 'Index';
+                }
+                else if(res = false)
+                {
+                    alert("Thao tác thất bại");
+                    window.location.href = 'Index';
+                }
                    
-          	}
-          });
-	}
+            }
+        });
+    }
+         
+	
 </script>
 <div class="MenuTrang">
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))

@@ -14,14 +14,14 @@ namespace Online_Boutique.Areas.Admin.Controllers
     {
         // GET: Admin/Product
         OnlineB db = new OnlineB();
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page,string key= "")
         {
             int pageSize = 5;
             //Tạo biến số trang
             int pageNumber = (page ?? 1);
             
             
-            return View(db.SanPhams.SqlQuery("SELECT * FROM SanPham").ToPagedList(pageNumber, pageSize));
+            return View(db.SanPhams.SqlQuery("SELECT * FROM SanPham WHERE tensp LIKE '%" + key + "%'").ToPagedList(pageNumber, pageSize));
             
         }
         [HttpGet]
@@ -30,7 +30,11 @@ namespace Online_Boutique.Areas.Admin.Controllers
             ViewBag.maloaisp = new SelectList(db.LoaiSanPhams.ToList().OrderBy(n => n.tenloaisp), "maloaisp", "tenloaisp");
             return View();
         }
-
+        public ActionResult timkiem(string key)
+        {
+            List<SanPham> ls = db.SanPhams.SqlQuery("SELECT * FROM SanPham WHERE tensp LIKE " + key + "").ToList();
+            return View(ls);
+        }
         [HttpPost]
         public ActionResult CreateAction(SanPham product, HttpPostedFileBase fileUpload)
         {

@@ -9,9 +9,17 @@
 
 <h2>Index</h2>
 
-<p>
+
     <a href="~/Admin/Product/Create" class="btn btn-primary">Thêm</a>
-</p>
+
+<div style="float:right" >
+<input class="col-md-6 col-xs-10" name="" type="text" style="width: 210px;border-radius: 22px;height: 36px;" placeholder="Tìm kiếm" id="txtSearch" />
+<button id="btnSearch" class="btn btn-info" type="submit" style="height: 35px;border-radius: 22px;">
+    <i class="fa fa-search" aria-hidden="true"></i>
+</button>
+    </div>
+<br />
+<hr />
 <table class="table">
     <tr>
         <th>
@@ -81,6 +89,7 @@
         </td>
         <td>
             <a href="~/Admin/Product/Edit?id=@item.masp" class="btn btn-primary" style="color:white;">Sửa</a>
+            <hr />
             <a href="~/Admin/Product/Delete?id=@item.masp" class="btn btn-primary" style="color:white;">Xóa</a>
         </td>
     </tr>
@@ -95,4 +104,15 @@
         display: inline;
     }
 </style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var minlength = 3;
+        $('#btnSearch').click(function () {
+            if ($.trim($('#txtSearch').val()).length >= minlength) {
+                var keyword = $.trim($('#txtSearch').val());
+                window.location.href = "index?key=" + keyword;
+            }
+        });
+    });
+</script>
 

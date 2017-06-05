@@ -51,8 +51,7 @@ namespace Online_Boutique.Controllers
             {
                 contcart += item.slmuasp;
                 
-            }
-            Session["ls"] = contcart + 1;
+            }           
             GioHang sp2 = listgh.Find(x => x.masp == masp);
             if(sp2==null)
             {
