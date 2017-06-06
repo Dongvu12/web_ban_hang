@@ -19,7 +19,7 @@ namespace Online_Boutique.Views.MyProducts
         }
 
         [HttpPost]
-        public ActionResult KetQuaTimKiem(int? page, FormCollection f, int pagesize = 2)
+        public ActionResult KetQuaTimKiem(int? page, FormCollection f, int pagesize = 9)
         {
             string chuoitk = f["txttimkiem"].ToString();
             List<SanPham> listkqtk = db.SanPhams.Where(x => x.tensp.Contains(chuoitk)).ToList();
@@ -34,13 +34,48 @@ namespace Online_Boutique.Views.MyProducts
             }
             else
             {
-
+                ViewBag.Chuoitk = chuoitk;
                 ViewBag.thongbao = "Tìm thấy " + listkqtk.Count() + " sản phẩm phù hợp với \"" + chuoitk + "\"";
                 return View(listkqtk.OrderBy(x => x.tensp).ToPagedList(pagenumber, pagesize));
             }
 
         }
+        public ActionResult timkiem2(int key,string chuoitk,int? page, int pagesize = 9)
+        {
+            int pagenumber = (page ?? 1);
+            if (key == 1)
+            {
+                List<SanPham> listkqtk = db.SanPhams.SqlQuery("SELECT * from SanPham WHERE tensp LIKE '%" + chuoitk + "%' and giabansp between 0 and 300000").ToList();
+                ViewBag.Chuoitk = chuoitk;
+                return View("KetQuaTimKiem", listkqtk.ToPagedList(pagenumber,pagesize));
 
+            }
+             if(key == 2)
+            {
+                List<SanPham> listkqtk = db.SanPhams.SqlQuery("SELECT * from SanPham WHERE tensp LIKE '%" + chuoitk + "%' and giabansp between 300000 and 600000").ToList();
+                ViewBag.Chuoitk = chuoitk;
+                return View("KetQuaTimKiem", listkqtk.ToPagedList(pagenumber, pagesize));
+            }
+             if(key==3)
+            {
+                List<SanPham> listkqtk = db.SanPhams.SqlQuery("SELECT * from SanPham WHERE tensp LIKE '%" + chuoitk + "%' and giabansp between 600000 and 1000000").ToList();
+                ViewBag.Chuoitk = chuoitk;
+                return View("KetQuaTimKiem", listkqtk.ToPagedList(pagenumber, pagesize));
+            }
+            if (key == 4)
+            {
+                List<SanPham> listkqtk = db.SanPhams.SqlQuery("SELECT * from SanPham WHERE tensp LIKE '%" + chuoitk + "%' and giabansp between 1000000 and 1500000").ToList();
+                ViewBag.Chuoitk = chuoitk;
+                return View("KetQuaTimKiem", listkqtk.ToPagedList(pagenumber, pagesize));
+            }else
+            {
+                List<SanPham> listkqtk = db.SanPhams.SqlQuery("SELECT * from SanPham WHERE tensp LIKE '%" + chuoitk + "%' and giabansp > 15000000").ToList();
+                ViewBag.Chuoitk = chuoitk;
+                return View("KetQuaTimKiem", listkqtk.ToPagedList(pagenumber, pagesize));
+            }
+        }
+            
+        
         [HttpGet]
         public ActionResult KetQuaTimKiem(int? page, string keyword, int pagesize = 1)
         {

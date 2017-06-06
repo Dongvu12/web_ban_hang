@@ -45,13 +45,7 @@ namespace Online_Boutique.Controllers
                 return null;
             }
             //lay ra session gio hang
-            int contcart = 0;
-            List<GioHang> listgh = LayGioHang();
-            foreach(GioHang item in listgh)
-            {
-                contcart += item.slmuasp;
-                
-            }           
+            List<GioHang> listgh = LayGioHang();          
             GioHang sp2 = listgh.Find(x => x.masp == masp);
             if(sp2==null)
             {
